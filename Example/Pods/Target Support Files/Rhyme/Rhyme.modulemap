@@ -1,0 +1,6 @@
+framework module Rhyme {
+  umbrella header "Rhyme-umbrella.h"
+
+  export *
+  module * { export * }
+}

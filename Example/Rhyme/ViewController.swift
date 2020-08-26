@@ -7,18 +7,25 @@
 //
 
 import UIKit
+import Rhyme
 
-class ViewController: UIViewController {
-
+class ViewController: WrapperViewController {
+    
+    
     override func viewDidLoad() {
+        delegate = self
+        url = URL(string: "https://katoyudai.github.io/pwa-sample/")
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
 
+extension ViewController: UNUserNotificationCenterDelegate {
+    
+}
