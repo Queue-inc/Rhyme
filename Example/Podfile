@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Rhyme_Example' do
+  pod 'Rhyme', :path => '../'
+
+  target 'Rhyme_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
