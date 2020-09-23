@@ -9,12 +9,12 @@
 import UIKit
 import Rhyme
 
-class ViewController: WrapperViewController {
+class ViewController: RhymeViewController {
     
     
     override func viewDidLoad() {
         delegate = self
-        url = URL(string: "https://katoyudai.github.io/pwa-sample/")
+        url = URL(string: "https://dev.remonade.app")
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }

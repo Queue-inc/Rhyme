@@ -41,4 +41,5 @@ TODO: Add long description of the pod here.
   s.static_framework = true
   s.dependency 'Firebase/Analytics'
   s.dependency 'Firebase/Messaging'
+  s.dependency 'ReachabilitySwift'
 end
