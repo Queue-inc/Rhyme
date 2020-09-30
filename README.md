@@ -11,6 +11,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+- Firebase Environment
+- A website using rhyme-js
+
 ## Installation
 
 Rhyme is available through [CocoaPods](https://cocoapods.org). To install
@@ -18,6 +21,26 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'Rhyme'
+```
+
+## Usage
+
+Define a view controller which extends `RhymeViewController`, and implement delegate and url as following:
+
+```swift
+class ViewController: RhymeViewController {
+    override func viewDidLoad() {
+        delegate = self
+        url = URL(string: "https://www.example.com")
+        super.viewDidLoad()
+    }
+}
+
+extension ViewController: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print(response)
+    }
+}
 ```
 
 ## Author

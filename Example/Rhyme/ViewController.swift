@@ -11,7 +11,6 @@ import Rhyme
 
 class ViewController: RhymeViewController {
     
-    
     override func viewDidLoad() {
         delegate = self
         url = URL(string: "https://dev.remonade.app")
@@ -27,5 +26,7 @@ class ViewController: RhymeViewController {
 }
 
 extension ViewController: UNUserNotificationCenterDelegate {
-    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print(response)
+    }
 }
