@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/Rhyme.svg?style=flat)](https://cocoapods.org/pods/Rhyme)
 [![Platform](https://img.shields.io/cocoapods/p/Rhyme.svg?style=flat)](https://cocoapods.org/pods/Rhyme)
 
-Rhyme is a wrapper library for PWA/web applications, implementing web cache, push notifications and in-app purchase.
+Rhyme is a wrapper library for PWA/web applications, implementing push notifications and in-app purchase.
 
 ## Example
 
@@ -13,7 +13,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-- Firebase Environment
+- Firebase environment
 - A website using rhyme-js
 
 ## Installation
@@ -27,9 +27,9 @@ pod 'Rhyme'
 
 ## Usage
 
-0. Read [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/cloud-messaging/ios/client) and add `GoogleService-Info.plist` to Xcode project.
+0. Read [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/cloud-messaging/ios/client) and add `GoogleService-Info.plist` to your Xcode project.
 
-1. Define a view controller which extends `RhymeViewController`, and implement delegate and url as following:
+1. Define a view controller which extends `RhymeViewController`, and implement `delegate` and `url` as following:
 
 ```swift:ViewController.swift
 class ViewController: RhymeViewController {
@@ -47,7 +47,7 @@ extension ViewController: UNUserNotificationCenterDelegate {
 }
 ```
 
-2. Add codes to configure Firebase in `AppDelegate`.
+2. Add some codes to configure Firebase in `AppDelegate`.
 
 ```swift:AppDelegate.swift
 import Firebase
