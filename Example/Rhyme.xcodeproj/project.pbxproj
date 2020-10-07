@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4C39F6132511DF0B00AAD6C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C39F6122511DF0B00AAD6C4 /* LaunchScreen.storyboard */; };
+		4C60815F252D90D1002A0954 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C60815E252D90D1002A0954 /* StoreKit.framework */; };
+		4C752ABA2524905F0075A5BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C752AB92524905F0075A5BE /* GoogleService-Info.plist */; };
+		4C752ABB2524905F0075A5BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C752AB92524905F0075A5BE /* GoogleService-Info.plist */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -33,7 +36,9 @@
 		2E56D9FE696E404DAE3D3E63 /* Pods-Rhyme_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rhyme_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Rhyme_Tests/Pods-Rhyme_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		2FDAE562EC40EAC563C9C967 /* Pods-Rhyme_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rhyme_Tests.release.xcconfig"; path = "Target Support Files/Pods-Rhyme_Tests/Pods-Rhyme_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		4C39F6122511DF0B00AAD6C4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4C60815E252D90D1002A0954 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4C752AB0252467770075A5BE /* Rhyme_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rhyme_Example.entitlements; sourceTree = "<group>"; };
+		4C752AB92524905F0075A5BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56B891289A55BBA0B2645B0A /* Pods-Rhyme_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rhyme_Example.release.xcconfig"; path = "Target Support Files/Pods-Rhyme_Example/Pods-Rhyme_Example.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Rhyme_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rhyme_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BA4D4E9BED4A30DC2FD0A13 /* Pods_Rhyme_Example.framework in Frameworks */,
+				4C60815F252D90D1002A0954 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +79,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				4C752AB92524905F0075A5BE /* GoogleService-Info.plist */,
 				4C752AB0252467770075A5BE /* Rhyme_Example.entitlements */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for Rhyme */,
@@ -155,6 +162,7 @@
 		CE4C74C95C21681DB22A7952 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C60815E252D90D1002A0954 /* StoreKit.framework */,
 				2C440DF14CB3FEFA54DB20DB /* Pods_Rhyme_Example.framework */,
 				6C7232FF0F43A6C74A30D497 /* Pods_Rhyme_Tests.framework */,
 			);
@@ -251,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				4C752ABA2524905F0075A5BE /* GoogleService-Info.plist in Resources */,
 				4C39F6132511DF0B00AAD6C4 /* LaunchScreen.storyboard in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
@@ -260,6 +269,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C752ABB2524905F0075A5BE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,7 +497,7 @@
 				INFOPLIST_FILE = Rhyme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.queue-inc.remonade";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -504,7 +514,7 @@
 				INFOPLIST_FILE = Rhyme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.queue-inc.remonade";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;

@@ -13,9 +13,10 @@ class ViewController: RhymeViewController {
     
     override func viewDidLoad() {
         delegate = self
-        url = URL(string: "https://dev.remonade.app")
+        url = URL(string: "https://v2-dev.remonade.app")
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+//        purchaseMyProduct(validProducts[0])
     }
     
     override func didReceiveMemoryWarning() {

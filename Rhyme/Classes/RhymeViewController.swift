@@ -2,6 +2,7 @@ import UIKit
 import WebKit
 import FirebaseInstanceID
 import Reachability
+import StoreKit
 
 open class RhymeViewController: UIViewController {
     
@@ -13,6 +14,10 @@ open class RhymeViewController: UIViewController {
     let reachability = try! Reachability()
     var alert: UIAlertController?
     var connection: Reachability.Connection = .unavailable
+    
+    var productsRequest = SKProductsRequest()
+    public var validProducts = [SKProduct]()
+    public var productIndex = 0
     
     open override func viewDidLoad() {
         reachability.whenReachable = { reachability in
@@ -48,6 +53,7 @@ open class RhymeViewController: UIViewController {
             let userController: WKUserContentController = WKUserContentController()
             userController.add(self, name: "FCM")
             webConfig.userContentController = userController
+            webConfig.applicationNameForUserAgent = "Version/8.0.2 Safari/600.2.5"
             webView = WKWebView(frame: self.view.frame, configuration: webConfig)
             webView?.navigationDelegate = self
             if let webView = webView {
@@ -74,6 +80,8 @@ open class RhymeViewController: UIViewController {
             ])
             view.bringSubview(toFront: launchScreen)
         }
+        
+        fetchAvailableProducts()
     }
     
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
@@ -96,6 +104,26 @@ open class RhymeViewController: UIViewController {
                 break
             }
         }
+    }
+    
+    func fetchAvailableProducts()  {
+        let identifiers: Set<String> = ["com.queueinc.remonade.100coin"]
+        productsRequest = SKProductsRequest(productIdentifiers: identifiers)
+        productsRequest.delegate = self
+        productsRequest.start()
+    }
+    
+    public func purchaseMyProduct(_ product: SKProduct) {
+        if SKPaymentQueue.canMakePayments() {
+            let payment = SKPayment(product: product)
+            SKPaymentQueue.default().add(self)
+            SKPaymentQueue.default().add(payment)
+        } else { print("Purchases are disabled in your device!") }
+    }
+    
+    public func restorePurchase() {
+        SKPaymentQueue.default().add(self as SKPaymentTransactionObserver)
+        SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
 }
@@ -137,3 +165,44 @@ extension RhymeViewController: WKNavigationDelegate {
     }
 }
 
+extension RhymeViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        if (response.products.count > 0) {
+            validProducts = response.products
+            let prod100coins = response.products[0] as SKProduct
+            print("1st product: " + prod100coins.localizedDescription)
+//            purchaseMyProduct(validProducts[0])
+            restorePurchase()
+        }
+    }
+    
+    public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased:
+                SKPaymentQueue.default().finishTransaction(transaction)
+                print("unko")
+                break
+            case .failed:
+                SKPaymentQueue.default().finishTransaction(transaction)
+                print("Payment has failed.")
+                break
+            case .restored:
+                SKPaymentQueue.default().finishTransaction(transaction)
+                print("Purchase has been successfully restored!")
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    public func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
+        return true
+    }
+    
+    public func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        print("restore finished")
+    }
+    
+}
