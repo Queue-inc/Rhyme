@@ -8,6 +8,7 @@
 
 import UIKit
 import Rhyme
+import StoreKit
 
 class ViewController: RhymeViewController {
     
@@ -16,7 +17,8 @@ class ViewController: RhymeViewController {
         url = URL(string: "https://v2-dev.remonade.app")
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        purchaseMyProduct(validProducts[0])
+
+        fetchProducts(["com.queueinc.remonade.100coin"])
     }
     
     override func didReceiveMemoryWarning() {
@@ -26,8 +28,22 @@ class ViewController: RhymeViewController {
     
 }
 
-extension ViewController: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print(response)
+extension ViewController: RhymeDelegate {
+    
+    func didReceiveNotification(_ response: UNNotificationResponse) {
+        
     }
+    
+    func didFetchProducts(_ products: [SKProduct]) {
+//        purchaseProduct("com.queueinc.remonade.100coin")
+    }
+    
+    func didUpdateTransactions(_ queue: SKPaymentQueue, _ transactions: [SKPaymentTransaction]) {
+        
+    }
+    
+    func didRestorePurchases(_ queue: SKPaymentQueue) {
+        
+    }
+    
 }

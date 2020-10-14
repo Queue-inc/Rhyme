@@ -4,10 +4,17 @@ import FirebaseInstanceID
 import Reachability
 import StoreKit
 
+public protocol RhymeDelegate {
+    func didReceiveNotification(_ response: UNNotificationResponse)
+    func didFetchProducts(_ products: [SKProduct])
+    func didUpdateTransactions(_ queue: SKPaymentQueue, _ transactions: [SKPaymentTransaction])
+    func didRestorePurchases(_ queue: SKPaymentQueue)
+}
+
 open class RhymeViewController: UIViewController {
     
     open var url: URL?
-    open var delegate: UNUserNotificationCenterDelegate?
+    open var delegate: RhymeDelegate?
     open var webView: WKWebView?
     var firebaseToken: String = ""
     var launchScreen: UIView?
@@ -16,8 +23,7 @@ open class RhymeViewController: UIViewController {
     var connection: Reachability.Connection = .unavailable
     
     var productsRequest = SKProductsRequest()
-    public var validProducts = [SKProduct]()
-    public var productIndex = 0
+    var products = [SKProduct]()
     
     open override func viewDidLoad() {
         reachability.whenReachable = { reachability in
@@ -80,8 +86,6 @@ open class RhymeViewController: UIViewController {
             ])
             view.bringSubview(toFront: launchScreen)
         }
-        
-        fetchAvailableProducts()
     }
     
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
@@ -106,22 +110,23 @@ open class RhymeViewController: UIViewController {
         }
     }
     
-    func fetchAvailableProducts()  {
-        let identifiers: Set<String> = ["com.queueinc.remonade.100coin"]
+    public func fetchProducts(_ identifiers: Set<String>)  {
         productsRequest = SKProductsRequest(productIdentifiers: identifiers)
         productsRequest.delegate = self
         productsRequest.start()
     }
     
-    public func purchaseMyProduct(_ product: SKProduct) {
-        if SKPaymentQueue.canMakePayments() {
-            let payment = SKPayment(product: product)
-            SKPaymentQueue.default().add(self)
-            SKPaymentQueue.default().add(payment)
-        } else { print("Purchases are disabled in your device!") }
+    public func purchaseProduct(_ productId: String) {
+        if let product = products.filter({$0.productIdentifier == productId}).first {
+            if SKPaymentQueue.canMakePayments() {
+                let payment = SKPayment(product: product)
+                SKPaymentQueue.default().add(self)
+                SKPaymentQueue.default().add(payment)
+            } else { print("Purchases are disabled in your device!") }
+        }
     }
     
-    public func restorePurchase() {
+    public func restorePurchases() {
         SKPaymentQueue.default().add(self as SKPaymentTransactionObserver)
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
@@ -129,11 +134,12 @@ open class RhymeViewController: UIViewController {
 }
 
 extension RhymeViewController: WKScriptMessageHandler {
+    
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if let delegate = delegate, message.name == "FCM" {
+        if message.name == "FCM" {
             if let body = message.body as? String {
                 if body == "START_RECEIVING" {
-                    FirebaseUtil.confirmNotification(delegate: delegate)
+                    FirebaseUtil.confirmNotification(delegate: self)
                     InstanceID.instanceID().instanceID { (result, error) in
                         if let error = error {
                             print("Error fetching remote instance ID: \(error)")
@@ -150,9 +156,11 @@ extension RhymeViewController: WKScriptMessageHandler {
             }
         }
     }
+    
 }
 
 extension RhymeViewController: WKNavigationDelegate {
+    
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         let code = (error as NSError).code
         print(code)
@@ -163,25 +171,31 @@ extension RhymeViewController: WKNavigationDelegate {
             }
         }
     }
+    
+}
+
+extension RhymeViewController: UNUserNotificationCenterDelegate {
+    
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        delegate?.didReceiveNotification(response)
+    }
+    
 }
 
 extension RhymeViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    
     public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        if (response.products.count > 0) {
-            validProducts = response.products
-            let prod100coins = response.products[0] as SKProduct
-            print("1st product: " + prod100coins.localizedDescription)
-//            purchaseMyProduct(validProducts[0])
-            restorePurchase()
-        }
+        products = response.products
+        delegate?.didFetchProducts(response.products)
     }
     
     public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        delegate?.didUpdateTransactions(queue, transactions)
         for transaction in transactions {
             switch transaction.transactionState {
             case .purchased:
                 SKPaymentQueue.default().finishTransaction(transaction)
-                print("unko")
+                print("Purchase succeeded.")
                 break
             case .failed:
                 SKPaymentQueue.default().finishTransaction(transaction)
@@ -202,7 +216,7 @@ extension RhymeViewController: SKProductsRequestDelegate, SKPaymentTransactionOb
     }
     
     public func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
-        print("restore finished")
+        delegate?.didRestorePurchases(queue)
     }
     
 }
