@@ -60,8 +60,11 @@ open class RhymeViewController: UIViewController {
             userController.add(self, name: "FCM")
             webConfig.userContentController = userController
             webConfig.applicationNameForUserAgent = "Version/8.0.2 Safari/600.2.5"
+            webConfig.websiteDataStore = WKWebsiteDataStore.default()
+            webConfig.preferences.javaScriptEnabled = true
             webView = WKWebView(frame: self.view.frame, configuration: webConfig)
             webView?.navigationDelegate = self
+            webView?.scrollView.delegate = self
             if let webView = webView {
                 if let lastUrl = DataUtil.url {
                     print("lastUrl: \(lastUrl)")
@@ -219,4 +222,10 @@ extension RhymeViewController: SKProductsRequestDelegate, SKPaymentTransactionOb
         delegate?.didRestorePurchases(queue)
     }
     
+}
+
+extension RhymeViewController: UIScrollViewDelegate {
+    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        scrollView.pinchGestureRecognizer?.isEnabled = false
+    }
 }

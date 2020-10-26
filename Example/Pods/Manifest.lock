@@ -79,18 +79,15 @@ PODS:
   - nanopb/encode (1.30905.0)
   - PromisesObjC (1.2.10)
   - Protobuf (3.13.0)
-  - PusherSwift (8.0.0):
-    - ReachabilitySwift (~> 5.0)
-    - Starscream (~> 3.1)
+  - PushNotifications (3.0.4)
   - ReachabilitySwift (5.0.0)
   - Rhyme (1.0.0):
     - Firebase/Analytics
     - Firebase/Messaging
     - ReachabilitySwift
-  - Starscream (3.1.1)
 
 DEPENDENCIES:
-  - PusherSwift
+  - PushNotifications
   - Rhyme (from `../`)
 
 SPEC REPOS:
@@ -108,9 +105,8 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Protobuf
-    - PusherSwift
+    - PushNotifications
     - ReachabilitySwift
-    - Starscream
 
 EXTERNAL SOURCES:
   Rhyme:
@@ -130,11 +126,10 @@ SPEC CHECKSUMS:
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
-  PusherSwift: 8f18b7beaf383e0475607ab6a3f89f477637fb21
+  PushNotifications: 6e3d148e5e129af9d4a9279b288c934f9a7f9066
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Rhyme: 22f789228feb3c052456a7967902d176b2173dd8
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
 
-PODFILE CHECKSUM: 951a8bc8e68c8cb49335e643a8b74f451eb1f43d
+PODFILE CHECKSUM: 8359dcd74b79ba8af9baf895d86e3e72feae426f
 
 COCOAPODS: 1.9.1

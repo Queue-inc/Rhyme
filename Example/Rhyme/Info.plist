@@ -26,6 +26,11 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>画像を保存するため</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

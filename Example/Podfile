@@ -4,9 +4,8 @@ use_frameworks!
 target 'Rhyme_Example' do
   pod 'Rhyme', :path => '../'
 
+  pod 'PushNotifications'
   target 'Rhyme_Tests' do
     inherit! :search_paths
-
-    pod 'PusherSwift'    
   end
 end
