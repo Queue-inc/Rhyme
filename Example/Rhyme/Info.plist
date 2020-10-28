@@ -9,7 +9,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>remonade</string>
+	<string>Rhyme</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,6 +28,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>画像を保存するため</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>画像を保存するため</string>
 	<key>UIBackgroundModes</key>

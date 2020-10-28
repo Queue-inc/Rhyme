@@ -7,8 +7,7 @@
 //
 
 import UIKit
-//import Firebase
-//import FirebaseMessaging
+import SwiftyStoreKit
 import PushNotifications
 
 @UIApplicationMain
@@ -16,13 +15,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let pushNotifications = PushNotifications.shared
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        FirebaseApp.configure()
-//        Messaging.messaging().delegate = self
-        self.pushNotifications.start(instanceId: "3736a440-7b69-4f8b-8317-f8c1aaf0ca84")
+        
+        self.pushNotifications.start(instanceId: "ea564709-ffb9-48a4-822d-33cedebd0cbd")
         self.pushNotifications.registerForRemoteNotifications()
+        try? self.pushNotifications.addDeviceInterest(interest: "hello")
+        
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                // Unlock content
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                }
+            }
+        }
         return true
     }
     

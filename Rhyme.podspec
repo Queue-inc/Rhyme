@@ -39,7 +39,6 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'WebKit'
   s.static_framework = true
-  s.dependency 'Firebase/Analytics'
-  s.dependency 'Firebase/Messaging'
   s.dependency 'ReachabilitySwift'
+  s.dependency 'SwiftyStoreKit'
 end

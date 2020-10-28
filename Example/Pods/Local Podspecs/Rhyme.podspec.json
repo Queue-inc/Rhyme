@@ -26,13 +26,10 @@
   ],
   "static_framework": true,
   "dependencies": {
-    "Firebase/Analytics": [
-
-    ],
-    "Firebase/Messaging": [
-
-    ],
     "ReachabilitySwift": [
+
+    ],
+    "SwiftyStoreKit": [
 
     ]
   }
