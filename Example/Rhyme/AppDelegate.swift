@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.pushNotifications.start(instanceId: "ea564709-ffb9-48a4-822d-33cedebd0cbd")
         self.pushNotifications.registerForRemoteNotifications()
-        try? self.pushNotifications.addDeviceInterest(interest: "hello")
+        try? self.pushNotifications.addDeviceInterest(interest: "rhyme-media-broadcast")
         
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             for purchase in purchases {

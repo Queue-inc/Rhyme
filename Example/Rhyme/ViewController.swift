@@ -16,7 +16,7 @@ class ViewController: RhymeViewController {
         
     override func viewDidLoad() {
         delegate = self
-        url = URL(string: "http://192.168.0.131:8888")
+        url = URL(string: "https://rhyme-for-media.webflow.io/")
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
