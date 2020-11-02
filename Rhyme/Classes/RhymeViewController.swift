@@ -63,6 +63,15 @@ open class RhymeViewController: UIViewController {
             webConfig.websiteDataStore = WKWebsiteDataStore.default()
             webConfig.preferences.javaScriptEnabled = true
             webView = WKWebView(frame: self.view.frame, configuration: webConfig)
+            let source: String =
+                """
+                var meta = document.createElement('meta');
+                meta.name = 'viewport';
+                meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+                var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);
+                """
+            let script: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+            webView?.configuration.userContentController.addUserScript(script)
             webView?.navigationDelegate = self
             webView?.scrollView.delegate = self
             if let webView = webView {
@@ -105,7 +114,11 @@ open class RhymeViewController: UIViewController {
                 }
             case #keyPath(WKWebView.url):
                 if let key = change?[NSKeyValueChangeKey.newKey] as? URL {
-                    DataUtil.url = key
+                    if let next = key.host, let original = self.url?.host {
+                        if next == original {
+                            DataUtil.url = key
+                        }
+                    }
                 }
             default:
                 break
@@ -163,15 +176,6 @@ extension RhymeViewController: WKScriptMessageHandler {
 }
 
 extension RhymeViewController: WKNavigationDelegate {
-    
-    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.url?.absoluteString, let domain = self.url?.host {
-            if !url.starts(with: domain) {
-                decisionHandler(.cancel)
-            }
-        }
-        decisionHandler(.allow)
-    }
     
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         let code = (error as NSError).code
