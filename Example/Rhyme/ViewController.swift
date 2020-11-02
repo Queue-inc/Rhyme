@@ -17,7 +17,7 @@ class ViewController: RhymeViewController {
     
     override func viewDidLoad() {
         delegate = self
-        url = URL(string: "https://v2-dev.remonade.app")
+        url = URL(string: "https://v2.remonade.app")
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 //        fetchProducts(["com.queueinc.remonade.100coin"])
