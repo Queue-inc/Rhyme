@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        FirebaseApp.configure()
 //        Messaging.messaging().delegate = self
-        self.pushNotifications.start(instanceId: "3736a440-7b69-4f8b-8317-f8c1aaf0ca84")
+        self.pushNotifications.start(instanceId: "ad91fe8f-eb78-41bf-9791-d4ad82edfa10")
         self.pushNotifications.registerForRemoteNotifications()
         return true
     }
