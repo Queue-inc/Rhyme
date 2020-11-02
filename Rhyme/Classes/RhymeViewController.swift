@@ -164,6 +164,15 @@ extension RhymeViewController: WKScriptMessageHandler {
 
 extension RhymeViewController: WKNavigationDelegate {
     
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.url?.absoluteString, let domain = self.url?.host {
+            if !url.starts(with: domain) {
+                decisionHandler(.cancel)
+            }
+        }
+        decisionHandler(.allow)
+    }
+    
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         let code = (error as NSError).code
         print(code)
